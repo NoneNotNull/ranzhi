@@ -11,7 +11,7 @@
  */
 ?>
 <div class='list'>
-<form class='form-inline' id='ajaxForm' method='post'>
+<form class='form' id='ajaxForm' method='post'>
   <?php foreach($lang->appModule as $app => $modules):?>
   <?php if($app != 'sys' and !isset($groupPrivs['apppriv'][$app])) continue;?>
   <div class='item'>
@@ -42,14 +42,14 @@
           <?php if($i == 1):?>
           <?php $rowspan = $app == 'crm' ? count($lang->appModule->$app) + 1 : count($lang->appModule->$app);?>
           <th rowspan="<?php echo $rowspan;?>" class='w-80px'>
-            <label class="checkbox">
+            <label class="checkbox-inline">
               <?php echo $lang->apps->$app;?>
               <input type="checkbox" class='checkApp' /> 
             </label>
           </th>
           <?php endif;?>
           <th class='text-right w-120px'>
-            <label class="checkbox">
+            <label class="checkbox-inline">
               <?php 
               if($app == 'superadmin' && $moduleName == 'adminUser') 
               {
@@ -86,7 +86,7 @@
         <tr>
           <th class='text-right'><?php echo $lang->group->extent;?></th>
           <td>
-            <label class='checkbox'>
+            <label class='checkbox-inline'>
               <?php $checked = isset($groupPrivs['crm']['manageAll']) ? 'checked' : '';?>
               <input type='checkbox' name='actions[crm][]' value='manageAll' class='manageAll' <?php echo $checked?> />
               <?php echo $lang->group->manageAll;?>

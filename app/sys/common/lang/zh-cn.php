@@ -41,7 +41,7 @@ $lang->apps->superadmin = '后台';
 /* Lang items for ranzhi. */
 $lang->ranzhi    = '然之协同';
 $lang->agreement = "已阅读并同意<a href='http://zpl.pub/page/zplv11.html' target='_blank'>《Z PUBLIC LICENSE授权协议1.2》</a>。<span class='text-danger'>未经许可，不得去除、隐藏或遮掩然之系统的任何标志及链接。</span>";
-$lang->poweredBy = "<a href='http://www.ranzhico.com/?v=%s' target='_blank'>{$lang->ranzhi} %s</a>";
+$lang->poweredBy = "<a href='http://www.ranzhico.com/?v=%s' target='_blank'>{$lang->ranzhi}%s</a>";
 $lang->ipLimited = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8' /></head><body>抱歉，管理员限制当前IP登录，请联系管理员解除限制。</body></html>";
 
 /* IE6 alert.  */
@@ -103,6 +103,7 @@ $lang->export         = '导出';
 $lang->setFileName    = '文件名';
 $lang->setFileNum     = '记录数';
 $lang->setFileType    = '文件类型';
+$lang->setCharset     = '编码格式';
 $lang->save           = '保存';
 $lang->saved          = '已保存';
 $lang->confirm        = '确认';
@@ -416,8 +417,10 @@ $lang->excel = new stdClass();
 $lang->excel->canNotRead = '不能解析该文件';
 
 $lang->excel->error = new stdclass();
-$lang->excel->error->info  = '您输入的值不在下拉框列表内。';
-$lang->excel->error->title = '输入有误';
+$lang->excel->error->info   = '您输入的值不在下拉框列表内。';
+$lang->excel->error->title  = '输入有误';
+$lang->excel->error->noFile = '没有文件';
+$lang->excel->error->noData = '没有有效的数据';
 
 $lang->excel->title = new stdclass();
 $lang->excel->title->contact  = '联系人';
@@ -500,7 +503,8 @@ $lang->currencyTip['y'] = '亿';
 
 /* The datetime settings. */
 define('DT_DATETIME1',  'Y-m-d H:i:s');
-define('DT_DATETIME2',  'y-m-d H:i');
+define('DT_DATETIME2',  'Y-m-d H:i');
+define('DT_DATETIME3',  'y-m-d H:i');
 define('DT_MONTHTIME1', 'n/d H:i');
 define('DT_MONTHTIME2', 'n月d日 H:i');
 define('DT_DATE1',      'Y-m-d');

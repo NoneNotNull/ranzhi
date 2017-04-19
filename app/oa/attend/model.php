@@ -100,7 +100,7 @@ class attendModel extends model
         $attends = $this->dao->select('*')->from(TABLE_ATTENDSTAT)->where('month')->eq($date)->fetchAll('account');
         foreach($attends as $account => $attendList)
         {
-            if(strpos(',' . $this->config->attend->noAttendUsers . ',', ',' . $account . ',') !== false) unset($attends[$account]);
+            if(strpos(",{$this->config->attend->noAttendUsers},", ",$account,") !== false) unset($attends[$account]);
             $beginDate = isset($this->config->attend->beginDate->$account) ? $this->config->attend->beginDate->$account : $this->config->attend->beginDate->company;
             if($beginDate)
             {
@@ -669,11 +669,7 @@ EOT;
      */
     public function processStatus()
     {
-        $attends = $this->dao->select('*')->from(TABLE_ATTEND)
-            ->where('status')->eq('')
-            ->andWhere('date')->lt(helper::today())
-            ->orWhere('date')->eq(date("Y-m-d"))
-            ->fetchAll('id');
+        $attends = $this->dao->select('*')->from(TABLE_ATTEND)->where('date')->le(helper::today())->fetchAll('id');
 
         foreach($attends as $attend)
         {
@@ -715,7 +711,7 @@ EOT;
             if(strtotime("{$attend->date} {$attend->signIn}") > strtotime("{$attend->date} {$this->config->attend->signInLimit}")) $status = 'late';
             if($this->config->attend->mustSignOut == 'yes')
             {
-                if(!empty($attend->signOut) && $attend->signOut != '00:00:00' && strtotime("{$attend->date} {$attend->signOut}") <  strtotime("{$attend->date} {$this->config->attend->signOutLimit}"))
+                if((empty($attend->signOut) or $attend->signOut == '00:00:00') or (strtotime("{$attend->date} {$attend->signOut}") <  strtotime("{$attend->date} {$this->config->attend->signOutLimit}")))
                 {
                     $status = $status == 'late' ? 'both' : 'early';
                 }
@@ -969,7 +965,7 @@ EOT;
             }
             else
             {
-                if($status && strpos(',leave,makeup,overtime,lieu,', ",$status,") !== false && !empty($oldAttend->desc)) $attend->desc += (float)$oldAttend->desc;
+                if($status && strpos(',leave,makeup,overtime,lieu,', ",$status,") !== false && $status == $oldAttend->status && !empty($oldAttend->desc)) $attend->desc += (float)$oldAttend->desc;
                 $attend->status = $this->computeStatus($oldAttend);
                 $this->dao->update(TABLE_ATTEND)->data($attend)->autoCheck()->where('date')->eq($date)->andWhere('account')->eq($account)->exec();
             }

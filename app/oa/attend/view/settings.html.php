@@ -34,7 +34,7 @@
             <tr>
               <th class='w-150px'><?php echo $lang->attend->beginDate->company;?></th>
               <td class='w-300px'><?php echo html::input('beginDate[company]', $beginDate, "class='form-control form-date'")?></td>
-              <td></td>
+              <td style='padding-left: 10px'><a data-toggle='tooltip' title='<?php echo $lang->attend->note->beginDate;?>'><i class='icon-question-sign'></i></a></td>
             </tr>
             <tr>
               <th><?php echo $lang->attend->signInLimit?></th>
@@ -72,7 +72,7 @@
                 <div class='input-group'>
                   <?php echo html::input('ip', $ip, "class='form-control' title='{$lang->attend->note->ip}'");?>
                   <div class='input-group-addon'>
-                    <label class="checkbox"><input type="checkbox" id="allip" name="allip" value="1"> <?php echo $lang->attend->note->allip;?></label>
+                    <label class="checkbox-inline"><input type="checkbox" id="allip" name="allip" value="1"> <?php echo $lang->attend->note->allip;?></label>
                   </div>
                 </div>
               </td>

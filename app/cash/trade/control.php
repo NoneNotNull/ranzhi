@@ -299,6 +299,20 @@ class trade extends control
         $this->view->trade         = $trade;
         $this->view->mode          = $mode;
 
+        if($trade->type == 'repay') 
+        {
+            $loanList = array('' => '');
+            $loans = $this->dao->select('*')->from(TABLE_TRADE)->where('type')->eq('loan')->fetchAll();
+            foreach($loans as $loan)
+            {
+                $repay = $this->dao->select("sum(money) as value")->from(TABLE_TRADE)->where('loanID')->eq($loan->id)->andWhere('type')->eq('repay')->fetch('value');
+                if($repay >= $loan->money and $loan->id != $trade->loanID) continue;
+                $loanList[$loan->id] = $loan->date . $depositorList[$loan->depositor] . $this->lang->trade->loan . zget($currencySign, $loan->currency) . $loan->money;
+            }
+            $this->view->loanList = $loanList;
+            $this->view->interest = $this->trade->getInterest($trade->loanID, $trade->createdDate);
+        }
+
         if($trade->type == 'in' or $trade->type == 'out') $this->view->categories = $this->loadModel('tree')->getOptionMenu($trade->type, 0, $removeRoot = true);
 
         if($trade->type == 'invest')
@@ -328,10 +342,26 @@ class trade extends control
                     }
                 } 
             }
+
             $trade->redeems = implode(',', $redeems);
             $trade->profits = implode(',', $profits);
             $this->view->redeemPairs = $redeemPairs;
             $this->view->tradePairs  = $tradePairs;
+        }
+
+        if($trade->type == 'redeem')
+        {
+            $invests = $this->dao->select('*')->from(TABLE_TRADE)->where('type')->eq('invest')->fetchAll();
+            $investList = array('' => '');
+            foreach($invests as $invest)
+            {
+                $redeem = $this->dao->select("sum(money) as value")->from(TABLE_TRADE)->where('investID')->eq($invest->id)->andWhere('type')->eq('redeem')->fetch('value');
+                if($redeem >= $invest->money and $invest->id != $trade->investID) continue;
+                $investList[$invest->id] = $invest->date . $depositorList[$invest->depositor] . $this->lang->trade->invest . zget($currencySign, $invest->currency) . $invest->money;
+            }
+            $this->view->investList         = $investList;
+            $this->view->investTrade        = $this->trade->getInvestTrade($trade->investID, $trade->createdDate);
+            $this->view->investCategoryList = $this->trade->getSystemCategoryPairs('invest');
         }
 
         $this->display();

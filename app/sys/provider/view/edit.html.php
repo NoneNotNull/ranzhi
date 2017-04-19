@@ -25,8 +25,8 @@
     <strong><i class="icon-edit"></i> <?php echo $lang->provider->edit;?></strong>
   </div>
   <div class='panel-body'>
-    <form method='post' id='ajaxForm' class='form-inline'>
-      <table class='table table-form w-p60'>
+    <form method='post' id='ajaxForm' class='form'>
+      <table class='table table-form'>
         <tr>
           <th class='w-80px'><?php echo $lang->provider->name;?></th>
           <td class='w-p40'><?php echo html::input('name', $provider->name, "class='form-control'");?></td><td></td>

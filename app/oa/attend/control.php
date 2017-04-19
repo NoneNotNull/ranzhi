@@ -595,6 +595,7 @@ class attend extends control
             /* Update stat with attends. */
             foreach($attends as $account => $accountAttends)
             {
+                if(!isset($stat[$account])) continue;
                 foreach($accountAttends as $attend)
                 {
                     $stat[$account]->actual++;
@@ -889,13 +890,13 @@ class attend extends control
             $clientLang = $this->app->getClientLang();
             if($clientLang == 'zh-cn')
             {
-                foreach($deptList as $key => $value) $deptList[$key] = iconv('UTF-8', 'GBK', $value);
-                foreach($userList as $key => $value) $userList[$key] = iconv('UTF-8', 'GBK', $value);
+                foreach($deptList as $key => $value) $deptList[$key] = @iconv('UTF-8', 'GBK', $value);
+                foreach($userList as $key => $value) $userList[$key] = @iconv('UTF-8', 'GBK', $value);
             }
             elseif($clientLang == 'zh-tw')
             {
-                foreach($deptList as $key => $value) $deptList[$key] = iconv('UTF-8', 'BIG5', $value);
-                foreach($userList as $key => $value) $userList[$key] = iconv('UTF-8', 'BIG5', $value);
+                foreach($deptList as $key => $value) $deptList[$key] = @iconv('UTF-8', 'BIG5', $value);
+                foreach($userList as $key => $value) $userList[$key] = @iconv('UTF-8', 'BIG5', $value);
             }
         }
         
@@ -906,13 +907,13 @@ class attend extends control
         {
             if($clientLang == 'zh-cn')
             {
-                foreach($deptList as $key => $value) $deptList[$key] = iconv('GBK', 'UTF-8', $value);
-                foreach($userList as $key => $value) $userList[$key] = iconv('GBK', 'UTF-8', $value);
+                foreach($deptList as $key => $value) $deptList[$key] = @iconv('GBK', 'UTF-8', $value);
+                foreach($userList as $key => $value) $userList[$key] = @iconv('GBK', 'UTF-8', $value);
             }                                                                                
             elseif($clientLang == 'zh-tw')                                                   
             {                                                                                
-                foreach($deptList as $key => $value) $deptList[$key] = iconv('BIG5','UTF-8',  $value);
-                foreach($userList as $key => $value) $userList[$key] = iconv('BIG5','UTF-8',  $value);
+                foreach($deptList as $key => $value) $deptList[$key] = @iconv('BIG5','UTF-8',  $value);
+                foreach($userList as $key => $value) $userList[$key] = @iconv('BIG5','UTF-8',  $value);
             }
         }
 

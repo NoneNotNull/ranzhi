@@ -103,6 +103,7 @@ $lang->export         = 'Export';
 $lang->setFileName    = 'File Name';
 $lang->setFileNum     = 'File Number';
 $lang->setFileType    = 'File Type';
+$lang->setCharset     = 'Charset';
 $lang->save           = 'Save';
 $lang->saved          = 'Saved';
 $lang->confirm        = 'Confirm';
@@ -416,8 +417,10 @@ $lang->excel = new stdClass();
 $lang->excel->canNotRead = 'Cannot resolve this file.';
 
 $lang->excel->error = new stdclass();
-$lang->excel->error->info  = 'The value you entered is not in the drop-down list.';
-$lang->excel->error->title = 'Input error';
+$lang->excel->error->info   = 'The value you entered is not in the drop-down list.';
+$lang->excel->error->title  = 'Input error.';
+$lang->excel->error->noFile = 'No file.';
+$lang->excel->error->noData = 'No valid data.';
 
 $lang->excel->title = new stdclass();
 $lang->excel->title->contact  = 'Contact';
@@ -500,7 +503,8 @@ $lang->currencyTip['y'] = '';
 
 /* Date times. */
 define('DT_DATETIME1',  'Y-m-d H:i:s');
-define('DT_DATETIME2',  'y-m-d H:i');
+define('DT_DATETIME2',  'Y-m-d H:i');
+define('DT_DATETIME3',  'y-m-d H:i');
 define('DT_MONTHTIME1', 'n/d H:i');
 define('DT_MONTHTIME2', 'F j, H:i');
 define('DT_DATE1',      'Y-m-d');

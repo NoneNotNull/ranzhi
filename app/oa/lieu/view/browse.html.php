@@ -54,9 +54,7 @@
             <?php if($type != 'browseReview'):?>
             <th class='w-80px'><?php commonModel::printOrderLink('reviewedBy', $orderBy, $vars, $lang->lieu->reviewedBy);?></th>
             <?php endif;?>
-            <?php if($type != 'company'):?>
             <th class='w-130px'><?php echo $lang->actions;?></th>
-            <?php endif;?>
           </tr>
         </thead>
         <?php foreach($lieuList as $lieu):?>
@@ -64,17 +62,16 @@
           <td><?php echo $lieu->id;?></td>
           <td><?php echo zget($users, $lieu->createdBy);?></td>
           <td class='visible-lg'><?php echo zget($deptList, $lieu->dept, '');?></td>
-          <td><?php echo $lieu->begin . ' ' . $lieu->start;?></td>
-          <td><?php echo $lieu->end . ' ' . $lieu->finish;?></td>
+          <td><?php echo formatTime($lieu->begin . ' ' . $lieu->start, DT_DATETIME2);?></td>
+          <td><?php echo formatTime($lieu->end . ' ' . $lieu->finish, DT_DATETIME2);?></td>
           <td><?php echo $lieu->hours;?></td>
           <td title='<?php echo $lieu->desc;?>'><?php echo $lieu->desc;?></td>
           <td class='lieu-<?php echo $lieu->status?>'><?php echo zget($this->lang->lieu->statusList, $lieu->status);?></td>
           <?php if($type != 'browseReview'):?>
           <td><?php echo zget($users, $lieu->reviewedBy);?></td>
           <?php endif;?>
-          <?php if($type != 'company'):?>
-          <td>
-            <?php echo html::a($this->createLink('oa.lieu', 'view', "id={$lieu->id}"), $lang->lieu->view, "data-toggle='modal'");?>
+          <td class='actionTD'>
+            <?php echo html::a($this->createLink('oa.lieu', 'view', "id={$lieu->id}&type=$type"), $lang->lieu->view, "data-toggle='modal'");?>
 
             <?php if($type == 'browseReview' and $lieu->status == 'wait'):?>
             <?php echo html::a($this->createLink('oa.lieu', 'review', "id={$lieu->id}&status=pass"), $lang->lieu->statusList['pass'], "class='reviewPass'");?>
@@ -87,7 +84,6 @@
             <?php echo html::a($this->createLink('oa.lieu', 'delete', "id={$lieu->id}"), $lang->delete, "class='deleter'");?>
             <?php endif;?>
           </td>
-          <?php endif;?>
         </tr>
         <?php endforeach;?>
       </table>

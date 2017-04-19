@@ -15,7 +15,7 @@ include '../../common/view/header.html.php';?>
     <strong><i class='icon-link'></i> <?php echo $lang->entry->bindUser;?></strong>
   </div>
   <div class='panel-body'>
-    <form id='ajaxForm' method='post' class='form-inline'>
+    <form id='ajaxForm' method='post' class='form'>
       <table class='table table-form w-p50'>
         <?php $i=1;?>
         <?php foreach($ranzhiUsers as $account => $realname):?>
@@ -30,7 +30,7 @@ include '../../common/view/header.html.php';?>
             <div class='input-group'>
               <?php echo html::select("zentaoAccounts[$i]", $zentaoUsers, '', "class='form-control'");?>
               <span class='input-group-addon'>
-                <label class='checkbox'><input type='checkbox' name="createUsers[<?php echo $i;?>]" id='createusers' value='1' /> <?php echo $lang->entry->createUser;?></label>
+                <label class='checkbox-inline'><input type='checkbox' name="createUsers[<?php echo $i;?>]" id='createusers' value='1' /> <?php echo $lang->entry->createUser;?></label>
               </span>
             </div>
             <?php endif;?>
